@@ -21,7 +21,7 @@ sub show_usage{
     show_version;
     print <<EOF;
 by Fernando Iazeolla 2013.
-File Syringe (fsyringe) ...
+File Syringe (fsyringe) ... inject or extract data from a file.
 
 USAGE:
 fsyringe [OPTIONS] FILE
@@ -29,15 +29,22 @@ fsyringe [OPTIONS] FILE
 OPTIONS:
 --help      -h          show this help
 --version   -v          show program version
---extract   -e          extract from file
---inject    -i          inject into file
---offset    -o          offset from beginning of file
+--extract   -e 'fmt'    extract from file (see perldoc -f pack)
+--inject    -i 'fmt'    inject into file (see perldoc -f pack)
+--offset    -o n        offset from beginning of file
 --print     -p          stdout format
---data      -d          data to inject
+--data      -d 'xxx'    data to inject
 --verbose   -vv         verbose output
---file      -f          file
+--file      -f 'file'   file
 
-FILE can be specified as ARGV or as a parameter -f (your choice :) )
+* FILE can be specified as ARGV or as a parameter -f (your choice :) )
+* extract and inject format (fmt) are explained in 'perldoc -f pack'.
+* inject will overwrite data.
+
+EXAMPLES:
+* fsyrynge -o 3 -e 'S' -f filename #will extract an unsigned short value (16bit) from offset 3 of filename file.
+* fsyrynge -o 4 -i 'a2' -d 'foo' filename #will inject at offset 4 of filename the string 'fo'.
+
 EOF
     
     exit(1);
@@ -69,7 +76,8 @@ sub opt_help_handler{
 sub inject{
     my ($data,$inject,$offset,$fd)=@_;
     seek $fd,$offset,0;
-
+    my $x=pack $inject,split / /,$data;
+    print $fd $x;
 }
 
 sub extract{
@@ -100,13 +108,13 @@ sub main{
     }
     printf("data: %s\noffset: %d\nprint:%s\n",$data,$offset,$print) if($fsyringe::VERBOSE);
     if($inject){
-        open(my $fd,"+>",$file)or m_die "!error opening file.\n" ;
+        open(my $fd,"+<",$file)or m_die "!error opening file.\n" ;
         if($fd){
             inject($data,$inject,$offset,$fd);
             close $fd;
         }
     }elsif($extract){
-        open (my $fd,"<",$file) or m_die "!error opening file.\n" ;
+        open (my $fd,"+<",$file) or m_die "!error opening file.\n" ;
         if($fd){
             extract($extract,$offset,$fd);
             close $fd;
