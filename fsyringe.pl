@@ -22,6 +22,7 @@ sub show_usage{
     print <<EOF;
 by Fernando Iazeolla 2013.
 File Syringe (fsyringe) ... inject or extract data from a file.
+This software is distributed under GPLv2 licence.
 
 USAGE:
 fsyringe [OPTIONS] FILE
@@ -114,7 +115,7 @@ sub main{
             close $fd;
         }
     }elsif($extract){
-        open (my $fd,"+<",$file) or m_die "!error opening file.\n" ;
+        open (my $fd,"<",$file) or m_die "!error opening file.\n" ;
         if($fd){
             extract($extract,$offset,$fd);
             close $fd;
