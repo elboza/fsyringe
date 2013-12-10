@@ -10,7 +10,7 @@ all: help
 .PHONY: clean install uninstall dist help
 
 install:
-	cp ${SRC} ${DESTDIR}${BINDIR}/${TARGET}
+	cp -p ${SRC} ${DESTDIR}${BINDIR}/${TARGET}
 	chmod 555 ${DESTDIR}${BINDIR}/${TARGET}
 
 uninstall:
