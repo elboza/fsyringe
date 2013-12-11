@@ -1,0 +1,21 @@
+Source: fsyringe
+Section: utils
+Priority: extra
+Maintainer: Fernando Iazeolla <xnando@yahoo.it>
+Build-Depends: debhelper (>= 9.0.0)
+Standards-Version: 3.9.4
+Homepage: http://github.com/elboza/fsyringe
+#Vcs-Git: git://git.debian.org/collab-maint/fsyringe.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/fsyringe.git;a=summary
+
+Package: fsyringe
+Architecture: all
+Depends: ${misc:Depends}, perl
+Description: command line utility to inject or exract data from files
+ if you are in need to quickly inject or extract simple data from or into 
+ a file from shell command line, then fsyringe is for you.
+ data to inject or extract can be: strings, char 8-bit, short 16-bit, 
+ long 32-bit, and quad 64 bit. numeric values can be either signed 
+ or unsigned.
+ you can either specify the byte order: big endian or little endian.
+
