@@ -4,6 +4,13 @@ fsyringe
 
 **file syringe
 
+## install
+
+```
+sudo make install
+```
+
+
 ## help
 
 ```
@@ -37,7 +44,7 @@ EXAMPLES:
 
 ```
 
-## format templates
+## fmt format templates
 
 for a complete reference see ``` perldoc -f pack ```
 
@@ -90,3 +97,18 @@ x  A null byte (a.k.a ASCII NUL, "\000", chr(0))
                 jJfFdDpP   (The "little end" touches the construct.)
 ```
            
+## web
+[fsyringe project page](http://github.com/elboza/fsyringe)
+
+### That's all falks!
+
+```
+ _____
+< bye >
+ -----
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
