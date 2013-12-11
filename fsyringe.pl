@@ -34,7 +34,7 @@ OPTIONS:
 --version   -v          show program version
 --extract   -e 'fmt'    extract from file (see perldoc -f pack)
 --inject    -i 'fmt'    inject into file (see perldoc -f pack)
---offset    -o n        offset from beginning of file
+--offset    -o n        offset from beginning of file(hex(0x) or dec)
 --print     -p          stdout format
 --data      -d 'xxx'    data to inject
 --verbose   -vv         verbose output
@@ -136,6 +136,13 @@ sub opt_help_handler{
 	}
 }
 
+sub get_int{
+    my $offs=shift @_;
+    return $offs+0 if($offs=~/^\d+$/);
+    return hex $offs if($offs=~/^(0x)?[\da-f]+$/i);
+    m_die("!error. offset is not a (dec or hex) number.\n");
+}
+
 sub inject{
     my ($data,$inject,$offset,$fd)=@_;
     seek $fd,$offset,0;
@@ -152,14 +159,14 @@ sub extract{
 }
 
 sub main{
-    my ($file,$inject,$extract,$data,$offset,$print)=(undef,undef,undef,undef,0,undef);
+    my ($file,$inject,$extract,$data,$offset,$print,$offs)=(undef,undef,undef,undef,undef,undef,0);
     GetOptions('help|h:s' => \&opt_help_handler,
     'version|v' => \&opt_version_handler,
     'extract|e=s' => \$extract,
     'verbose|vv' => \$fsyringe::VERBOSE,
     'inject|i=s' => \$inject,
     'data|d=s'=>\$data,
-    'offset|o=i'=>\$offset,
+    'offset|o=s'=>\$offset,
     'print|p=s'=>\$print,
     'file|f=s'=> \$file
     ) or die "Error in command line argument. Try 'fsyringe --help' .";
@@ -169,17 +176,23 @@ sub main{
         m_die "!ERROR. missing file.\ntry 'fsyringe --help' .\n" if($#ARGV);
         $file=shift @ARGV;
     }
-    printf("data: %s\noffset: %d\nprint:%s\n",$data,$offset,$print) if($fsyringe::VERBOSE);
+    if(!$offset){
+        $offs=0;
+    }
+    else{
+        $offs=get_int $offset;
+    }
+    printf("data: %s\noffset: %d\nprint:%s\n",$data,$offs,$print) if($fsyringe::VERBOSE);
     if($inject){
         open(my $fd,"+<",$file)or m_die "!error opening file.\n" ;
         if($fd){
-            inject($data,$inject,$offset,$fd);
+            inject($data,$inject,$offs,$fd);
             close $fd;
         }
     }elsif($extract){
         open (my $fd,"<",$file) or m_die "!error opening file.\n" ;
         if($fd){
-            extract($extract,$offset,$fd);
+            extract($extract,$offs,$fd);
             close $fd;
         }
     }else{
