@@ -29,12 +29,14 @@ dist:
 	cp ${SRC} ${DIST_DIR}/
 	cp Makefile ${DIST_DIR}/
 	cp README.md ${DIST_DIR}/
+	mkdir -p ${DIST_DIR}/man
+	cp -p ${MANSRC} ${DIST_DIR}/${MANSRC}
 	COPYFILE_DISABLE=1 tar -cvzf ${TARGET}-${VERSION}.tar.gz ${DIST_DIR}/
-	rm -f ./${DIST_DIR}/*
+	rm -rf ./${DIST_DIR}/*
 	rmdir ${DIST_DIR}
 
 clean:
-	rm -f ./${DIST_DIR}/*
+	rm -rf ./${DIST_DIR}/*
 	rmdir ${DIST_DIR}
 
 help:
