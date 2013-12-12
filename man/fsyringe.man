@@ -4,13 +4,12 @@ fsyringe - File Syringe, command line utility to inject or exract data from file
 .SH SYNOPSIS
 .B fsyringe [ options ] file
 .SH DESCRIPTION
-.B fsyringe
-if you are in need to quickly inject or extract simple data from or into 
+If you are in need to quickly inject or extract simple data from or into 
 a file from shell command line, then fsyringe is for you.
-data to inject or extract can be: strings, char 8-bit, short 16-bit, 
-long 32-bit, and quad 64 bit. numeric values can be either signed 
+Data to inject or extract can be: strings, char 8-bit, short 16-bit, 
+long 32-bit, and quad 64 bit. Numeric values can be either signed 
 or unsigned.
-you can either specify the byte order: big endian or little endian.
+You can either specify the byte order: big endian or little endian.
 .SH OPTIONS
 .TP
 .B --help      -h
@@ -43,100 +42,144 @@ verbose output
 .B --file      -f 'file'
 file
 .TP
-* FILE can be specified as ARGV or as a parameter -f (your choice :) )
+.B *
+FILE can be specified as ARGV or as a parameter -f (your choice :) )
 .TP
-* extract and inject format (fmt) are explained in 'perldoc -f pack'
+.B *
+extract and inject format (fmt) are explained in 'perldoc -f pack'
   or in fsyringe's man page or type 'fsyringe --help fmt'.
 .TP
-* inject will overwrite data.
+.B *
+inject will overwrite data.
 .SH FMT OPTIONS
 .TP
-a  A string with arbitrary binary data, will be null padded.
+.B a
+A string with arbitrary binary data, will be null padded.
 .TP
-A  A text (ASCII) string, will be space padded.
+.B A
+A text (ASCII) string, will be space padded.
 .TP
-Z  A null-terminated (ASCIZ) string, will be null padded.
+.B Z
+A null-terminated (ASCIZ) string, will be null padded.
 .TP
-b  A bit string (ascending bit order inside each byte,
+.B b
+A bit string (ascending bit order inside each byte,
        like vec()).
 .TP
-B  A bit string (descending bit order inside each byte).
+.B B
+A bit string (descending bit order inside each byte).
 .TP
-h  A hex string (low nybble first).
+.B h
+A hex string (low nybble first).
 .TP
-H  A hex string (high nybble first).
+.B H 
+A hex string (high nybble first).
 .TP
-c  A signed char (8-bit) value.
+.B c
+A signed char (8-bit) value.
 .TP
-C  An unsigned char (octet) value.
+.B C
+An unsigned char (octet) value.
 .TP
-W  An unsigned char value (can be greater than 255).
+.B W
+An unsigned char value (can be greater than 255).
 .TP
-s  A signed short (16-bit) value.
+.B s
+A signed short (16-bit) value.
 .TP
-S  An unsigned short value.
+.B S
+An unsigned short value.
 .TP
-l  A signed long (32-bit) value.
+.B l
+A signed long (32-bit) value.
 .TP
-L  An unsigned long value.
+.B L
+An unsigned long value.
 .TP
-q  A signed quad (64-bit) value.
+.B q
+A signed quad (64-bit) value.
 .TP
-Q  An unsigned quad value.
+.B Q
+An unsigned quad value.
    (Quads are available only if your system supports 64-bit integer values _and_ if Perl has been compiled to support those.  Raises an exception otherwise.)
 .TP
-i  A signed integer value.
+.B i
+A signed integer value.
 .TP
-I  A unsigned integer value.
+.B I
+A unsigned integer value.
    (This 'integer' is _at_least_ 32 bits wide.  Its exact
           size depends on what a local C compiler calls 'int'.)
 .TP
-n  An unsigned short (16-bit) in "network" (big-endian) order.
+.B n
+An unsigned short (16-bit) in "network" (big-endian) order.
 .TP
-N  An unsigned long (32-bit) in "network" (big-endian) order.
+.B N
+An unsigned long (32-bit) in "network" (big-endian) order.
 .TP
-v  An unsigned short (16-bit) in "VAX" (little-endian) order.
+.B v
+An unsigned short (16-bit) in "VAX" (little-endian) order.
 .TP
-V  An unsigned long (32-bit) in "VAX" (little-endian) order.
+.B V
+An unsigned long (32-bit) in "VAX" (little-endian) order.
 .TP
-j  A Perl internal signed integer value (IV).
+.B j
+A Perl internal signed integer value (IV).
 .TP
-J  A Perl internal unsigned integer value (UV).
+.B J
+A Perl internal unsigned integer value (UV).
 .TP
-f  A single-precision float in native format.
+.B f
+A single-precision float in native format.
 .TP
-d  A double-precision float in native format.
+.B d
+A double-precision float in native format.
 .TP
-F  A Perl internal floating-point value (NV) in native format
+.B F
+A Perl internal floating-point value (NV) in native format
 .TP
-D  A float of long-double precision in native format.
+.B D
+A float of long-double precision in native format.
    (Long doubles are available only if your system supports
    long double values _and_ if Perl has been compiled to
           support those.  Raises an exception otherwise.)
 .TP
-p  A pointer to a null-terminated string.
+.B p
+A pointer to a null-terminated string.
 .TP
-P  A pointer to a structure (fixed-length string).
+.B P
+A pointer to a structure (fixed-length string).
 .TP
-u  A uuencoded string.
+.B u
+A uuencoded string.
 .TP
-U  A Unicode character number.  Encodes to a character in character mode and UTF-8 (or UTF-EBCDIC in EBCDIC platforms) in byte mode.
+.B U
+A Unicode character number.  Encodes to a character in character mode and UTF-8 (or UTF-EBCDIC in EBCDIC platforms) in byte mode.
 .TP
-w  A BER compressed integer (not an ASN.1 BER, see perlpacktut for details).  Its bytes represent an unsigned integer in base 128, most significant digit first, with as few digits as possible.  Bit eight (the high bit) is set on each byte except the last.
+.B w
+A BER compressed integer (not an ASN.1 BER, see perlpacktut for details).  Its bytes represent an unsigned integer in base 128, most significant digit first, with as few digits as possible.  Bit eight (the high bit) is set on each byte except the last.
 .TP
-x  A null byte (a.k.a ASCII NUL, "\000", chr(0))
+.B x
+A null byte (a.k.a ASCII NUL, "\000", chr(0))
 .TP    
->   sSiIlLqQ   Force big-endian byte-order on the type.
+.B >   
+sSiIlLqQ   Force big-endian byte-order on the type.
                 jJfFdDpP   (The "big end" touches the construct.)
 .TP
-<   sSiIlLqQ   Force little-endian byte-order on the type.
+.B <   
+sSiIlLqQ   Force little-endian byte-order on the type.
                 jJfFdDpP   (The "little end" touches the construct.)	
 .SH EXAMPLES
 .TP 
-* fsyrynge -o 3 -e 'S' -f filename #will extract an unsigned short value (16bit) from offset 3 of filename file.
+.B *
+fsyrynge -o 3 -e 'S' -f filename #will extract an unsigned short value (16bit) from offset 3 of filename file.
 .TP
-* fsyrynge -o 4 -i 'a2' -d 'foo' filename #will inject at offset 4 of filename the string 'fo'.
+.B *
+fsyrynge -o 4 -i 'a2' -d 'foo' filename #will inject at offset 4 of filename the string 'fo'.
 .SH SEE ALSO
+.TP
+http://github.com/elboza/fsyrynge
+.TP
 dwarf(1), perldoc -f pack, ht(1), hexdump(1), bvi(1)
 .SH AUTHOR
 .nf
