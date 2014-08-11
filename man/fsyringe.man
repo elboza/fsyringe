@@ -3,6 +3,8 @@
 fsyringe - File Syringe, command line utility to inject or exract data from files.
 .SH SYNOPSIS
 .B fsyringe [ options ] file
+.TP
+.B fsr [ options ] file
 .SH DESCRIPTION
 If you are in need to quickly inject or extract simple data from or into 
 a file from shell command line, then fsyringe is for you.
