@@ -27,6 +27,7 @@ This software is distributed under GPLv2 licence.
 
 USAGE:
 fsyringe [OPTIONS] FILE
+fsr [OPTIONS] FILE
 
 OPTIONS:
 --help      -h          show this help

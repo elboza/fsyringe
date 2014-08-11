@@ -3,6 +3,7 @@ BINDIR=/usr/local/bin
 MANDIR=/usr/local/share/man/man1
 SRC=fsyringe.pl
 TARGET=fsyringe
+SHORTTARGET=fsr
 DIST_DIR=fsyringe
 MANSRC=man/${TARGET}.man
 MANTARGET=${TARGET}.1
@@ -16,11 +17,13 @@ install:
 	mkdir -p ${DESTDIR}${BINDIR}
 	cp -p ${SRC} ${DESTDIR}${BINDIR}/${TARGET}
 	chmod 555 ${DESTDIR}${BINDIR}/${TARGET}
+	ln -s ${DESTDIR}${BINDIR}/${TARGET} ${DESTDIR}${BINDIR}/${SHORTTARGET}
 	mkdir -p ${DESTDIR}${MANDIR}
 	cp -p ${MANSRC} ${DESTDIR}${MANDIR}/${MANTARGET}
 	chmod 644 ${DESTDIR}${MANDIR}/${MANTARGET}
 
 uninstall:
+	rm -f ${DESTDIR}${BINDIR}/${SHORTTARGET}
 	rm -f ${DESTDIR}${BINDIR}/${TARGET}
 	rm -f ${DESTDIR}${MANDIR}/${MANTARGET}
 
